@@ -2,6 +2,7 @@
 makeChart - builds chart on user data
 params:
     opt.data(array) - user data;
+    opt.text(array) - text for X axis;
     opt.dx - offset X-axis relative canvas element;
     opt.dy - offset Y-axis relative canvas element;
     opt.xst - step on X - axis;
@@ -10,14 +11,21 @@ params:
     opt.wb - width between columns;
 */
 var makeChart = function (opt) {
+    'use strict';
     //create canvas element
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
 
+    //find size of canvas
+    var dataAmount = opt.data.length;
+    var space = 100;
+    var W = opt.w * dataAmount + opt.wb * dataAmount + opt.dx + space;
+    var max = Math.max.apply(null, opt.data);
+    var H = max + opt.dx + space;
+
     //set the size of canvas
-    var H = 600, W = 700;
-    canvas.height = 600;
-    canvas.width = 700;
+    canvas.height = H;
+    canvas.width = W;
 
     //set the background fill
     var grad = ctx.createLinearGradient(0, 0, H, W);
@@ -29,7 +37,7 @@ var makeChart = function (opt) {
 
     //draw X, Y axises
     ctx.strokeStyle = "white";
-    ctx.lineWidth = "3";
+    var lineW = ctx.lineWidth = "3";
     ctx.beginPath();
     ctx.moveTo(opt.dx, opt.dy);
     ctx.lineTo(opt.dx, H - opt.dy);
@@ -38,11 +46,13 @@ var makeChart = function (opt) {
     ctx.stroke();
 
     //darw text for Y axis
+    var linesCount = Math.floor(max / opt.yst);
     ctx.fillStyle = "white";
     ctx.font = 'italic 10pt Arial';
     ctx.beginPath(); // for lines front of the text
     for (var i = 0; i < 10; i++) {
         if (i == 0) continue;
+        if (i > linesCount) continue;
         ctx.fillText(opt.yst * i + '', opt.dx - 35, H - i * opt.yst - opt.dy);
         // draw lines
         ctx.moveTo(opt.dx - 6, H - i * opt.yst - opt.dy);
@@ -50,6 +60,7 @@ var makeChart = function (opt) {
     };
     ctx.stroke();
 
+    var d = lineW / 2;
     //darw data
     var coord = []; //for text on X axis
     ctx.fillStyle = 'blue';
@@ -58,7 +69,7 @@ var makeChart = function (opt) {
         h = opt.data[i],
         y = H - h - opt.dy;
         coord.push(x);
-        ctx.fillRect(x, y, opt.w, h);
+        ctx.fillRect(x + d, y - d, opt.w, h);
     }
 
     //draw text for X axis

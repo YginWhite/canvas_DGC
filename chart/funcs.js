@@ -48,16 +48,17 @@ var makeChart = function (opt) {
     //darw text for Y axis
     var linesCount = Math.floor(max / opt.yst);
     ctx.fillStyle = "white";
-    ctx.font = 'italic 10pt Arial';
+    ctx.font = 'italic 15px Arial';
     ctx.beginPath(); // for lines front of the text
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i <= linesCount; i++) {
         if (i == 0) continue;
-        if (i > linesCount) continue;
+        //if (i > linesCount) continue;
         ctx.fillText(opt.yst * i + '', opt.dx - 35, H - i * opt.yst - opt.dy);
         // draw lines
         ctx.moveTo(opt.dx - 6, H - i * opt.yst - opt.dy);
         ctx.lineTo(opt.dx + 2, H - i * opt.yst - opt.dy);
     };
+    ctx.closePath();
     ctx.stroke();
 
     var d = lineW / 2;

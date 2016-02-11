@@ -4,24 +4,29 @@
 	<meta charset="UTF-8">
 	<title>Canvas</title>
 	<style>
-		canvas {border: 1px solid silver; width: 500px; height: 500px;} 
+		canvas {border: 1px solid silver} 
 	</style>
 </head>
 <body>
-	<canvas width="700" height="600" id="canv"></canvas>
-	<script>
-		var canvas = document.getElementById('canv');
-		var ctx = canvas.getContext('2d');
-	</script>
-
 	<script src="funcs.js"></script>
-	
+
 	<script>
 	var options = {
 		data: [50, 100, 150, 250, 400],
 		text: ['year1', 'year2', 'year3', 'year4', 'year5'],
 		dx: 60,
-		dy: 70,
+		dy: 60,
+		yst: 50,
+		w: 40,
+		wb: 20
+	};
+	makeChart(options);
+
+	options = {
+		data: [50, 180, 250, 350, 410],
+		text: ['year1', 'year2', 'year3', 'year4', 'year5'],
+		dx: 60,
+		dy: 60,
 		yst: 50,
 		w: 40,
 		wb: 20

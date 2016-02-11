@@ -18,10 +18,10 @@ var makeChart = function (opt) {
 
     //find size of canvas
     var dataAmount = opt.data.length;
-    var space = 100;
+    var space = 60;
     var W = opt.w * dataAmount + opt.wb * dataAmount + opt.dx + space;
     var max = Math.max.apply(null, opt.data);
-    var H = max + opt.dx + space;
+    var H = max + opt.dy + space;
 
     //set the size of canvas
     canvas.height = H;
@@ -52,7 +52,6 @@ var makeChart = function (opt) {
     ctx.beginPath(); // for lines front of the text
     for (var i = 0; i <= linesCount; i++) {
         if (i == 0) continue;
-        //if (i > linesCount) continue;
         ctx.fillText(opt.yst * i + '', opt.dx - 35, H - i * opt.yst - opt.dy);
         // draw lines
         ctx.moveTo(opt.dx - 6, H - i * opt.yst - opt.dy);

@@ -35,22 +35,30 @@ var makeChart = function (opt) {
     ctx.lineTo(W - opt.dx, H - opt.dy);
     ctx.stroke();
 
-    //darw text for X asis
+    //darw text for Y asis
     ctx.fillStyle = "white";
     ctx.font = 'italic 10pt Arial';
     for (var i = 0; i < 12; i++) {
-        ctx.fillText(opt.xst * i + '', opt.dy, H - i * opt.xst - opt.dy);
+        ctx.fillText(opt.yst * i + '', opt.dx - 35, H - i * opt.yst - opt.dy);
     };
 
     //darw data
+    var coord = []; //for text on X asis
     ctx.fillStyle = 'blue';
     for (var i = 0; i < opt.data.length; i++) {
         var x = i * 50 + opt.dx,
         w = 30,
         h = opt.data[i],
         y = H - h - opt.dy;
+        coord.push(x);
         ctx.fillRect(x, y, w, h);
     }
+
+    //draw text for X asis
+    ctx.fillStyle = "white";
+    for (var i = 0; i < coord.length; i++) {
+        ctx.fillText(coord[i] + '', opt.dx + coord[i] - 30, H - opt.dy + 25);
+    };
 
     //append to ...
     document.body.appendChild(canvas);

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas</title>
+	<style>
+		canvas {border: 1px solid silver; width: 500px; height: 500px;} 
+	</style>
+</head>
+<body>
+	<canvas width="700" height="600" id="canv"></canvas>
+	<script>
+		var canvas = document.getElementById('canv');
+		var ctx = canvas.getContext('2d');
+
+		var data = [50, 100, 150, 250, 400];
+		var grad = ctx.createLinearGradient(0, 0, 700, 600);
+		grad.addColorStop(0, 'grey');
+		grad.addColorStop(0.5, 'black');
+		grad.addColorStop(1, 'grey');
+		ctx.fillStyle = grad;
+
+		ctx.fillRect(0, 0, 700, 600);
+
+		var dy = 20, dx = 60;
+		var H = canvas.height, W = canvas.width;
+		console.log(W);
+
+		ctx.strokeStyle = "white";
+		ctx.lineWidth = "3";
+		ctx.beginPath();
+		ctx.moveTo(dx, dy);
+		ctx.lineTo(dx, H - dy);
+		ctx.moveTo(dx, H - dy);
+		ctx.lineTo(W - dx, H - dy);
+		ctx.stroke();
+
+		ctx.fillStyle = 'blue';
+		for (var i = 0; i < data.length; i++) {
+			var x = i * 50 + dx,
+				w = 30,
+				h = data[i],
+				y = H - h - dy;
+
+			ctx.fillRect(x, y, w, h);
+		}
+
+		ctx.fillStyle = "white";
+		ctx.font = 'italic 10pt Arial';
+		for (var i = 0; i < 12; i++) {
+			ctx.fillText(50 * i + '', dx - 40, H - i * 50 - dy);
+		};
+
+	</script>
+	<script src="funcs.js"></script>
+	<script>
+	var options = {
+		data: [50, 100, 150, 250, 400],
+		dx: 60,
+		dy: 20,
+		xst: 50
+	};
+	makeChart(options);
+	</script>
+</body>
+</html>

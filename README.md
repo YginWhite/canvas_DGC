@@ -1,0 +1,1 @@
+It will be functionallity for drawing diagrams, graphics and charts on canvas.
